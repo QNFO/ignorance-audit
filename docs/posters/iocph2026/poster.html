@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Auditing Not-Knowing — IOCPh 2026 poster (Sciforum-210010)</title>
+<style>
+@page { size: 841mm 1189mm; margin: 0; }
+:root{
+  --ink:#16202e; --ink2:#3a4658; --muted:#5d6878;
+  --navy:#14284b; --navy2:#1f3a68; --amber:#c9781b; --amber-soft:#fbefdf;
+  --paper:#fbfaf7; --rule:#d9d4c8; --card:#ffffff;
+  --p1:#2c5d8f; --p2:#4f6f3a; --p3:#7a4f8c; --p4:#a5452f; --p5:#b5791c;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:841mm;height:1189mm}
+body{background:var(--paper);color:var(--ink);font-family:"Inter",sans-serif;font-size:25pt;line-height:1.26;
+  font-feature-settings:"ss01","cv11";-webkit-print-color-adjust:exact;print-color-adjust:exact;overflow:hidden}
+.page{width:841mm;height:1189mm;display:flex;flex-direction:column}
+
+/* header */
+header{background:var(--navy);color:#fff;padding:13mm 30mm 10mm;position:relative}
+header .event{font-size:24pt;letter-spacing:.06em;text-transform:uppercase;color:#f1c88e;font-weight:600;margin-bottom:7mm}
+header h1{font-family:"Inter Display","Inter",sans-serif;font-weight:800;font-size:84pt;line-height:1.02;letter-spacing:-.015em;max-width:690mm}
+header h1 .sub{display:block;font-weight:500;font-size:44pt;line-height:1.1;margin-top:3mm;color:#dfe6f2;letter-spacing:-.005em}
+header .author{margin-top:7mm;font-size:36pt;font-weight:700}
+header .aff{font-size:26pt;font-weight:400;color:#cfd8e6;margin-left:6mm}
+header .aff b{color:#fff;font-weight:600}
+header .idbox{position:absolute;right:30mm;top:26mm;text-align:right;font-size:24pt;color:#cfd8e6;line-height:1.35}
+header .idbox strong{display:block;color:#fff;font-size:30pt}
+.band{height:5mm;background:linear-gradient(90deg,var(--p1) 0 20%,var(--p2) 20% 40%,var(--p3) 40% 60%,var(--p4) 60% 80%,var(--p5) 80% 100%)}
+
+main{flex:1;padding:6mm 30mm 2mm;display:flex;flex-direction:column;gap:4mm}
+.row{display:grid;gap:14mm}
+.flow{column-count:2;column-gap:14mm;column-fill:balance}
+.flow h2,.flow h3{break-after:avoid}.flow .strip,.flow .obj li,.flow .proto li{break-inside:avoid}
+.flow section+section h2{margin-top:0}
+.r1{grid-template-columns:.8fr 1.2fr}
+.two{grid-template-columns:1fr 1fr}
+.wide-left{grid-template-columns:1.2fr .8fr}
+
+h2{font-family:"Inter Display","Inter",sans-serif;font-size:38pt;font-weight:800;color:var(--navy);letter-spacing:-.01em;
+   display:flex;align-items:baseline;gap:5mm;margin-bottom:4mm;border-bottom:1.2mm solid var(--navy);padding-bottom:2mm}
+h2 .n{color:var(--amber);font-size:36pt}
+h3{font-size:28pt;font-weight:700;color:var(--navy2);margin:4mm 0 2mm}
+p{margin-bottom:2.5mm}
+p.lead{font-size:25pt;color:var(--ink)}
+ul,ol{padding-left:9mm}
+li{margin-bottom:1.5mm}
+.muted{color:var(--muted)}
+em{font-style:italic}
+b,strong{font-weight:700}
+
+.card{background:var(--card);border:.6mm solid var(--rule);border-radius:4mm;padding:7mm 8mm}
+.callout{background:var(--amber-soft);border-left:2.5mm solid var(--amber);border-radius:0 4mm 4mm 0;padding:6mm 8mm}
+.callout b{color:#7a440a}
+
+/* objectives */
+.obj{counter-reset:o;list-style:none;padding:0}
+.obj li{counter-increment:o;position:relative;padding-left:15mm;margin-bottom:2.5mm}
+.obj li::before{content:counter(o);position:absolute;left:0;top:.4mm;width:10.5mm;height:10.5mm;border-radius:50%;
+  background:var(--navy);color:#fff;font-weight:700;font-size:24pt;display:flex;align-items:center;justify-content:center}
+
+/* development strip */
+.strip{display:flex;gap:2.5mm;align-items:stretch;margin:2mm 0 2mm}
+.strip div{flex:1;background:#eef2f8;border-radius:3mm;padding:3mm 3.5mm;font-size:24pt;line-height:1.2;position:relative}
+.strip div b{display:block;font-size:30pt;color:var(--navy);line-height:1.1}
+.strip div.hl{background:var(--navy);color:#fff}
+.strip div.hl b{color:#f1c88e}
+
+/* instrument figure */
+.instrument{display:grid;grid-template-columns:repeat(5,1fr);gap:4mm;margin-top:3mm}
+.phase{border-radius:4mm;overflow:hidden;background:#fff;border:.6mm solid var(--rule);display:flex;flex-direction:column}
+.phase .ph{color:#fff;padding:3.5mm 4mm;font-weight:700;font-size:25pt;line-height:1.12}
+.phase .ph small{display:block;font-size:24pt;font-weight:500;opacity:.9;letter-spacing:.04em;text-transform:uppercase}
+.phase ol{list-style:none;padding:3mm 3.5mm 4mm;flex:1}
+.phase li{font-size:24pt;line-height:1.15;margin-bottom:1.6mm}
+.phase li .q{display:inline-flex;width:9mm;height:9mm;border-radius:50%;color:#fff;font-weight:700;font-size:24pt;
+  align-items:center;justify-content:center;margin-right:2mm;vertical-align:-1.2mm}
+.phase li b{display:inline;font-weight:700}
+.phase li i{display:block;color:var(--ink2);font-style:italic;margin-top:1mm}
+.c1 .ph,.c1 .q{background:var(--p1)} .c2 .ph,.c2 .q{background:var(--p2)} .c3 .ph,.c3 .q{background:var(--p3)}
+.c4 .ph,.c4 .q{background:var(--p4)} .c5 .ph,.c5 .q{background:var(--p5)}
+.loop{display:flex;align-items:center;gap:4mm;margin-top:2.5mm;font-size:25pt;color:var(--ink2)}
+.loop svg{flex:0 0 auto}
+.figcap{font-size:24pt;color:var(--muted);margin-top:2.5mm;line-height:1.25}
+.figcap b{color:var(--ink)}
+
+/* protocol */
+.proto{counter-reset:r;list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:2.5mm 8mm}
+.proto li{counter-increment:r;font-size:24pt;line-height:1.22;padding-left:13mm;position:relative;margin:0}
+.proto li::before{content:"R" counter(r);position:absolute;left:0;top:0;font-weight:800;color:var(--amber)}
+
+/* table */
+table{width:100%;border-collapse:collapse;font-size:24pt;line-height:1.2}
+sub{font-size:24pt;vertical-align:-.25em;line-height:0}
+th{background:var(--navy);color:#fff;text-align:left;padding:2.2mm 3mm;font-weight:700}
+td{padding:2.2mm 3mm;border-bottom:.5mm solid var(--rule);vertical-align:top}
+tr:nth-child(even) td{background:#f5f2ec}
+td.cat{font-weight:700;white-space:nowrap}
+.tag{display:inline-block;color:#fff;border-radius:2mm;padding:.4mm 2.5mm;font-size:24pt;font-weight:700}
+tr.aud td{background:var(--amber-soft)!important}
+
+/* layers */
+.layers{display:flex;flex-direction:column;gap:3mm}
+.layer{border-radius:4mm;padding:4.5mm 6mm;color:#fff;display:grid;grid-template-columns:1fr auto;gap:2mm 6mm;align-items:center}
+.layer h4{font-size:30pt;font-weight:800;line-height:1.1}
+.layer p{margin:0;font-size:24.5pt;line-height:1.22;grid-column:1/2;opacity:.95}
+.layer .fail{grid-row:1/3;grid-column:2;text-align:right;font-size:24pt;line-height:1.2;max-width:62mm}
+.layer .fail b{display:block;font-size:24pt;text-transform:uppercase;letter-spacing:.05em;opacity:.8}
+.L1{background:var(--p1)} .L2{background:var(--p3)} .L3{background:var(--p4)}
+
+/* claims */
+.claims td:first-child{white-space:nowrap;font-weight:800;color:var(--navy)}
+.status{display:inline-block;border:.6mm solid var(--amber);color:#7a440a;border-radius:2mm;padding:0 2mm;font-weight:700;font-size:24pt}
+
+/* principles */
+.princ{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:2.5mm 6mm}
+.princ li{background:transparent;border:none;border-left:1.6mm solid var(--navy);border-radius:0;padding:.5mm 0 .5mm 4mm;font-size:24pt;line-height:1.2;margin:0}
+.princ li b{color:var(--navy);display:block;font-size:25pt}
+
+/* footer */
+footer{margin-top:auto;background:#efece5;border-top:1mm solid var(--rule);padding:4.5mm 30mm 4.5mm;
+  display:grid;grid-template-columns:2fr 1.15fr auto;gap:8mm;font-size:24pt;line-height:1.14;color:var(--ink2)}
+footer h5{font-size:26pt;color:var(--navy);font-weight:800;margin-bottom:2mm}
+footer .refs{column-count:2;column-gap:8mm}footer .refs h5{column-span:all}footer .refs p{break-inside:avoid;margin-bottom:1mm;padding-left:6mm;text-indent:-6mm}
+footer .decl p{margin-bottom:1.6mm}
+footer .decl b{color:var(--ink)}
+.qrs{display:flex;gap:6mm;align-items:flex-start}
+.qr{width:44mm;text-align:center;font-size:24pt;line-height:1.15;color:var(--ink)}
+.qr img{width:44mm;height:44mm;display:block;background:#fff;border-radius:2mm;margin-bottom:2mm}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <div class="event">IOCPh 2026 · 2nd International Online Conference of the Journal <i>Philosophies</i> · 26–30 October 2026 · General Session</div>
+  <h1>Auditing Not-Knowing:<span class="sub">The Universal Ignorance Audit and the Epistemology of an AI-Assisted Research Pipeline</span></h1>
+  <div class="author">Rowan Brad Quni-Gudzinas <span class="aff"><b>QNFO</b>, independent research, Amsterdam, the Netherlands &nbsp;·&nbsp; rowan.quni@qnfo.org &nbsp;·&nbsp; ORCID 0009-0002-4317-5604</span></div>
+  <div class="idbox"><strong>Sciforum-210010</strong>Poster</div>
+</header>
+<div class="band"></div>
+
+<main>
+
+<!-- ROW 1: introduction + method/development -->
+<div class="row r1">
+  <section>
+    <h2><span class="n">1</span>Introduction</h2>
+    <p class="lead">Ignorance is usually handled as an absence: list the gaps, then fill them. This work treats not-knowing as a <b>structure</b> with parts that can be named: load-bearing assumptions (<b>scaffolds</b>), models mistaken for the world (<b>map–territory errors</b>), felt anomalies (<b>wobbles</b>), defended zones (<b>protected ignorance</b>) and productive capacities (<b>actionable</b> and <b>relational</b> ignorance).</p>
+    <p>It builds on agnotology [3], specified ignorance [2], ignorance as a driver of science [1], judgment under uncertainty [4], forecaster calibration [5] and intellectual humility [6]. AI-assisted research makes fluent text cheap and moves the bottleneck to evaluation: a pipeline must be able to say what it does not know about its own outputs.</p>
+    <h3>Objectives</h3>
+    <ol class="obj">
+      <li>Present the <b>Universal Ignorance Audit (UIA)</b> [7], a fifteen-question, five-phase instrument for making not-knowing legible in any domain.</li>
+      <li>Read one documented case through it: a published paper from the author’s AI-assisted pipeline [8], judged machine-generated by two AI-assisted forensic analyses that made errors of their own.</li>
+      <li>Propose governance principles and state testable claims.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2><span class="n">2</span>Methodology</h2>
+    <h3>Development (one day, human–AI dialogue)</h3>
+    <div class="strip">
+      <div><b>6</b>seed questions</div>
+      <div><b>12</b>meta-questions (AI)</div>
+      <div><b>12</b>sharper questions (human): power, body, taboo</div>
+      <div><b>13</b>v2.0, five phases</div>
+      <div class="hl"><b>Meta</b>audit of the audit</div>
+      <div><b>15</b>final form</div>
+    </div>
+    <h3>Administration protocol</h3>
+    <ol class="proto">
+      <li>Name the target X before questioning.</li>
+      <li>Answer every question; if one seems inapplicable, say why and stretch to find its relevance.</li>
+      <li>Write the answers down.</li>
+      <li>Do not resolve during Phases 1–4.</li>
+      <li>Allow silence after Question 14.</li>
+      <li>Question 15’s answer seeds the next pass.</li>
+    </ol>
+    <h3>Case analysis and implementation</h3>
+    <p>The findings of two separate AI-assisted forensic analyses (assessments of whether the paper was machine-generated) were re-coded <b>post hoc, by the author</b>, into UIA categories; the analyses were then read with the same categories. Software: <b><code>ignorance-audit</code> 0.1.0</b> (Python) checks R1 and R2, chains passes from Q15 (R6), runs the audit with any text model and scores the 2028 error-category claim; 20/20 tests pass (19 Oct 2026).</p>
+  </section>
+</div>
+
+<!-- ROW 2: Figure 1 instrument -->
+<section>
+  <div class="instrument">
+    <div class="phase c1"><div class="ph"><small>Phase 1</small>Surface the Structure</div><ol>
+      <li><span class="q">1</span><b>Scaffold detection</b><i>What hidden assumptions hold this up?</i></li>
+      <li><span class="q">2</span><b>Map–territory</b><i>Where might the map be taken for the territory?</i></li>
+      <li><span class="q">3</span><b>Wobble probe</b><i>Where is the tension, the thing that does not fit?</i></li></ol></div>
+    <div class="phase c2"><div class="ph"><small>Phase 2</small>Stress-Test the Frame</div><ol>
+      <li><span class="q">4</span><b>Inversion</b><i>What if the opposite were true?</i></li>
+      <li><span class="q">5</span><b>Falsifiability</b><i>What would a world look like in which this was false?</i></li>
+      <li><span class="q">6</span><b>Invariants</b><i>Change the base, origin or frame: what stays the same?</i></li></ol></div>
+    <div class="phase c3"><div class="ph"><small>Phase 3</small>Multiply Perspectives</div><ol>
+      <li><span class="q">7</span><b>Radical shift</b><i>How would this look to a radically different observer?</i></li>
+      <li><span class="q">8</span><b>Externalised ignorance</b><i>Who knows what I do not, and what is my biggest blind spot to them?</i></li></ol></div>
+    <div class="phase c4"><div class="ph"><small>Phase 4</small>Uncover the Hidden Forces</div><ol>
+      <li><span class="q">9</span><b>Power</b><i>Who benefits from this framing? Who is silenced?</i></li>
+      <li><span class="q">10</span><b>Protected ignorance</b><i>What is the most dangerous question I could ask?</i></li>
+      <li><span class="q">11</span><b>Somatic, tacit</b><i>What does this ignorance feel like, and what does the feeling know?</i></li></ol></div>
+    <div class="phase c5"><div class="ph"><small>Phase 5</small>Act</div><ol>
+      <li><span class="q">12</span><b>Wilful</b><i>What do I know but pretend not to?</i></li>
+      <li><span class="q">13</span><b>Actionable</b><i>What can I do with this uncertainty now?</i></li>
+      <li><span class="q">14</span><b>Relational</b><i>What does the unknown want from me?</i></li>
+      <li><span class="q">15</span><b>Meta</b><i>What question am I not asking?</i></li></ol></div>
+  </div>
+  <div class="loop">
+    <svg width="120mm" height="16mm" viewBox="0 0 120 16" aria-hidden="true"><path d="M116 4 H10 Q4 4 4 10 V12" fill="none" stroke="#b5791c" stroke-width="1.6"/><path d="M1 9 L4 14 L7 9" fill="none" stroke="#b5791c" stroke-width="1.6"/></svg>
+    <span><b>Recursion:</b> the answer to Q15 seeds the next audit pass (protocol rule R6).</span>
+  </div>
+  <p class="figcap"><b>Figure 1.</b> The Universal Ignorance Audit, ordered from surface structure to protected depth and ending in action (wording abridged).</p>
+</section>
+
+<!-- ROW 3: results -->
+<div class="row wide-left">
+  <section>
+    <h2><span class="n">3</span>Case and interpretation</h2>
+    <h3>3.1 The case, re-coded in UIA categories</h3>
+    <table>
+      <thead><tr><th style="width:24%">UIA category</th><th>What the forensic analyses reported about the paper [8]</th></tr></thead>
+      <tbody>
+        <tr><td class="cat"><span class="tag" style="background:var(--p1)">Q1</span> Scaffold</td><td>Inline meta-tags labelling the text’s own modes; citation keys that resolve to nothing: the production process left visible.</td></tr>
+        <tr><td class="cat"><span class="tag" style="background:var(--p1)">Q2</span> Map–territory</td><td>Decoder power set to ≈ 0 from O(log<sub>p</sub> N) complexity and called a “conservative upper bound”; zero is a lower bound. Complexity stood in for dissipation.</td></tr>
+        <tr><td class="cat"><span class="tag" style="background:var(--p1)">Q3</span> Wobble</td><td>Landauer’s bound at 300 K vs 10 mK: erasure floors conflated with room-temperature coherence; no thermal-noise mechanism.</td></tr>
+        <tr class="aud"><td class="cat"><span class="tag" style="background:var(--p4)">Q1–2</span> The auditors</td><td>Both analyses called the organisation fabricated; one called the author’s name invented. Both claims are false: <i>unrecognised</i> was read as <i>non-existent</i>, a known unknown that called for checking.</td></tr>
+        <tr><td class="cat"><span class="tag" style="background:var(--p3)">Read twice</span></td><td>Its admission that its metric lacked external validation was read as a symptom of generation; the audit reads it as a partial scaffold breach: process showing through, so data.</td></tr>
+      </tbody>
+    </table>
+    <p class="figcap"><b>Table 1.</b> Forensic findings, re-coded post hoc by the author into UIA categories. Illustrative, not a test: the errors were found without the UIA.</p>
+
+    <h3>3.2 The pipeline’s response (self-reported)</h3>
+    <ul style="font-size:24pt">
+      <li><b>Disclosure</b> of AI involvement, with corrections, instead of deletion.</li>
+      <li>A <b>generation-specific gate</b> for energy-budget errors, unresolvable citations, scaffold overload and self-referential metrics.</li>
+      <li><b>Adversarial validation</b> over self-review.</li>
+      <li><b>Auditing the auditors</b> with Q1, Q2 and Q10 [8].</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3 style="margin-top:16mm">3.3 Proposal: three layers of epistemic legibility</h3>
+    <div class="layers">
+      <div class="layer L1"><h4>Provenance</h4><p>A truthful, checkable account of how each output was made.</p><div class="fail"><b>Fails as</b>scaffold</div></div>
+      <div class="layer L2"><h4>Ignorance</h4><p>The programme can state the structure of its not-knowing.</p><div class="fail"><b>Fails as</b>map–territory error</div></div>
+      <div class="layer L3"><h4>Auditor</h4><p>Every verifier is itself auditable.</p><div class="fail"><b>Fails as</b>protected ignorance</div></div>
+    </div>
+    <p class="figcap"><b>Figure 2.</b> Legibility = what a pipeline can show about how, and how well, it knows. Three layers proposed from the case, each with the UIA category for its typical failure.</p>
+
+    <h3>3.4 The meta-audit (AI-drafted) bounds the method</h3>
+    <ul style="font-size:24pt">
+      <li>Assumes ignorance is mainly generative: risky in clinical or safety-critical use.</li>
+      <li>Listing a blind spot is not seeing it.</li>
+      <li>Analytic and extractive; underweights receptive, non-verbal knowing.</li>
+      <li>Favours articulate, time-rich users. Sibling questions followed; several entered the final form.</li>
+    </ul>
+  </section>
+</div>
+
+<!-- ROW 4: conclusion + claims -->
+<div class="row two">
+  <section>
+    <h2><span class="n">4</span>Registered claims and limits</h2>
+    <table class="claims">
+      <thead><tr><th>Due</th><th>Claim, and what would falsify it (UIA §8)</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>2027</td><td>An audit surfaces an assumption a programme’s practitioners had not named. Fails if audits only restate known ones.</td><td><span class="status">Pending</span></td></tr>
+        <tr><td>2028</td><td>On AI-assisted outputs, the audit catches an error category standard checks miss. Fails if it adds nothing beyond existing gates.</td><td><span class="status">Pending</span></td></tr>
+        <tr><td>2028</td><td>Another researcher, in another domain, finds it net-positive. Fails if inert or harmful.</td><td><span class="status">Pending</span></td></tr>
+      </tbody>
+    </table>
+    <h3>Limitations</h3>
+    <ul style="font-size:24pt">
+      <li>One case, coded post hoc by a party to it: illustrative, not validating.</li>
+      <li>The instrument is unvalidated and auditor-dependent by design.</li>
+      <li>Not culture-free; no substitute for domain expertise.</li>
+      <li>Claims sit in a preprint, not a registry, in the register format the analyses flagged as an AI marker.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="n">5</span>Conclusion</h2>
+    <div class="callout"><p style="margin:0;font-size:27pt">We propose that, in an AI-assisted pipeline, <b>epistemic legibility is the core governance problem</b>, and that its failures are recursive: the analyses that caught the paper’s scaffolds made unverified claims of their own. Verifiers need auditing too.</p></div>
+    <ul class="princ" style="margin-top:5mm">
+      <li><b>Audit before asserting</b>Audit major claims before publishing.</li>
+      <li><b>Disclose, don’t conceal</b>Concealment makes quality an integrity issue.</li>
+      <li><b>Provenance as a gate</b>“How was this produced?” is a required field.</li>
+      <li><b>Gate for generation</b>Test fluent models’ own failure modes.</li>
+      <li><b>Invite adversaries</b>Publish disconfirmation conditions.</li>
+      <li><b>Audit the auditors</b>Every verification layer is another map.</li>
+    </ul>
+  </section>
+</div>
+
+</main>
+
+<footer>
+  <div class="refs">
+    <h5>References</h5>
+    <p>[1] Firestein, S. (2012). <i>Ignorance: How It Drives Science</i>. Oxford Univ. Press.</p>
+    <p>[2] Merton, R. K. (1987). Three fragments from a sociologist’s notebooks. <i>Annu. Rev. Sociol.</i> 13, 1–28.</p>
+    <p>[3] Proctor, R. N.; Schiebinger, L. (eds.) (2008). <i>Agnotology</i>. Stanford Univ. Press.</p>
+    <p>[4] Tversky, A.; Kahneman, D. (1974). Judgment under uncertainty. <i>Science</i> 185, 1124–1131.</p>
+    <p>[5] Tetlock, P. E. (2005). <i>Expert Political Judgment</i>. Princeton Univ. Press.</p>
+    <p>[6] Whitcomb, D.; Battaly, H.; Baehr, J.; Howard-Snyder, D. (2017). Intellectual humility. <i>Philos. Phenomenol. Res.</i> 94(3), 509–539.</p>
+    <p>[7] Quni-Gudzinas, R. B. (2026). The Universal Ignorance Audit; Knowing What We Do Not Know. QNFO preprints. Code: github.com/QNFO/ignorance-audit</p>
+    <p>[8] Quni-Gudzinas, R. B. (2026). The Qudit Advantage (analysed paper). papers.qnfo.org/papers/qwave-qudit-advantage</p>
+  </div>
+  <div class="decl">
+    <h5>Declarations</h5>
+    <p><b>Conflict of interest.</b> The author wrote the analysed paper, commissioned the analyses, directs QNFO and licenses the software (commercial use by agreement). The case is a first-person account. No external funding.</p>
+        <p><b>Use of AI.</b> An LLM assistant (model not recorded) extracted the meta-questions, drafted v2.0 and the meta-audit; the forensic analyses were AI-assisted; the library was built in the author’s AI-assisted pipeline; Claude (Anthropic, Opus 5.5) drafted, fact-checked and laid out this poster. The author is responsible for all content.</p>
+  </div>
+  <div class="qrs">
+    <div class="qr"><img src="qr_paper.svg" alt="QR code: method paper">Method paper</div>
+    <div class="qr"><img src="qr_synth.svg" alt="QR code: synthesis paper">Synthesis</div>
+    <div class="qr"><img src="qr_code.svg" alt="QR code: code repository">Code</div>
+  </div>
+</footer>
+
+</div>
+</body>
+</html>
