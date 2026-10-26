@@ -3,8 +3,8 @@
   "upload_type": "software",
   "creators": [{"name": "Quni-Gudzinas, Rowan Brad"}],
   "related_identifiers": [
-    {"identifier": "10.5281/zenodo.21901984", "relation": "isSupplementTo", "scheme": "doi"},
-    {"identifier": "10.5281/zenodo.22026592", "relation": "isSupplementTo", "scheme": "doi"}
+    {"identifier": "https://papers.qnfo.org/papers/universal-ignorance-audit/", "relation": "isSupplementTo", "scheme": "url"},
+    {"identifier": "https://papers.qnfo.org/papers/ai4metascience-ignorance-audit/", "relation": "isSupplementTo", "scheme": "url"}
   ],
   "keywords": ["epistemics", "ignorance", "AI-assisted research", "metascience"]
 }
