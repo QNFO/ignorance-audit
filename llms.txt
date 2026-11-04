@@ -1,0 +1,12 @@
+# ignorance-audit
+
+> QNFO research code: ignorance-audit (tested, with CITATION.cff and DOI).
+
+## Start here
+- [README](https://raw.githubusercontent.com/QNFO/ignorance-audit/main/README.md)
+- [AGENTS.md](https://raw.githubusercontent.com/QNFO/ignorance-audit/main/AGENTS.md)
+
+## Related
+- [Fleet hub and agent rules](https://raw.githubusercontent.com/QNFO/qnfo-workers/main/llms.txt)
+- [Repository map](https://raw.githubusercontent.com/QNFO/qnfo-workers/main/docs/REPO-MAP.md)
+- [Research record](https://raw.githubusercontent.com/QNFO/qnfo-research/main/llms.txt)
