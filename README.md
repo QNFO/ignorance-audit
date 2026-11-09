@@ -1,3 +1,5 @@
+> **Archived 2026-11-09 (REPO-CONSOLIDATION-1).** This repository is read-only. Its content now lives in QNFO/qnfo-workers, folder `research-code/ignorance-audit/` (the tested source). `pip install git+https://github.com/QNFO/ignorance-audit.git` still works. Plan: rwnq8/agent-operating-system `REPOSITORIES.md`.
+
 # ignorance-audit
 
 The Universal Ignorance Audit (Rowan Brad Quni-Gudzinas, [papers.qnfo.org/papers/universal-ignorance-audit](https://papers.qnfo.org/papers/universal-ignorance-audit/))
